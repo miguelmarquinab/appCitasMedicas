@@ -1,17 +1,13 @@
 package com.example.appcitasmedicas
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 import android.content.Intent
 import android.util.Patterns
 import android.view.View
 import androidx.core.widget.addTextChangedListener
 import com.example.appcitasmedicas.databinding.ActivityLoginBinding
-
 
 class LoginActivity : AppCompatActivity() {
 
@@ -34,9 +30,19 @@ class LoginActivity : AppCompatActivity() {
 
         // 5) Click en "Ingresar"
         binding.btnLogin.setOnClickListener {
-            if (validateInputs()) {
-                fakeLogin() // Por ahora simulado (luego conectamos API)
+            val usuario = binding.etEmail.text?.toString()?.trim().orEmpty()
+            var clave = binding.etPassword.text?.toString().orEmpty()
+
+            if (usuario.isBlank()) {
+                binding.tilEmail.error = "Ingrese usuario"
+                return@setOnClickListener
             }
+
+            if (clave.length < 4) {
+                binding.tilPassword.error = "Clave invalida"
+                return@setOnClickListener
+            }
+            doLogin(usuario, clave)
         }
 
         // 6) Click en "Registrarme" (por ahora solo mensaje)
@@ -46,18 +52,97 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateLoginButtonState() {
-        val email = binding.etEmail.text?.toString()?.trim().orEmpty()
-        val pass = binding.etPassword.text?.toString().orEmpty()
 
-        val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(email).matches()
-        val isPassValid = pass.length >= 6
+    private fun doLogin(usuario: String, clave: String) {
+        setLoading(true)
+        binding.tvError.visibility = View.GONE
+        binding.tilEmail.error = null
+        binding.tilPassword.error = null
 
-        binding.btnLogin.isEnabled = isEmailValid && isPassValid
+        com.example.appcitasmedicas.data.remote.ApiClient.api
+            .login(usuario, clave)
+            .enqueue(object : retrofit2.Callback<List<com.example.appcitasmedicas.data.remote.LoginUserDto>> {
+
+                override fun onResponse(
+                    call: retrofit2.Call<List<com.example.appcitasmedicas.data.remote.LoginUserDto>>,
+                    response: retrofit2.Response<List<com.example.appcitasmedicas.data.remote.LoginUserDto>>
+                ) {
+                    setLoading(false)
+
+                    if (!response.isSuccessful) {
+                        showError("Error HTTP: ${response.code()}")
+                        return
+                    }
+
+                    val body = response.body().orEmpty()
+                    if (body.isEmpty()) {
+                        showError("Usuario o clave incorrectos")
+                        return
+                    }
+
+                    // ✅ Login OK
+                    goToServices()
+                }
+
+                override fun onFailure(
+                    call: retrofit2.Call<List<com.example.appcitasmedicas.data.remote.LoginUserDto>>,
+                    t: Throwable
+                ) {
+                    setLoading(false)
+                    showError("No se pudo conectar al servidor")
+                }
+            })
     }
 
+    private fun showError(msg: String) {
+        binding.tvError.text = msg
+        binding.tvError.visibility = View.VISIBLE
+    }
+
+//    private fun updateLoginButtonState() {
+//        val email = binding.etEmail.text?.toString()?.trim().orEmpty()
+//        val pass = binding.etPassword.text?.toString().orEmpty()
+//
+//        val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(email).matches()
+//        val isPassValid = pass.length >= 6
+//
+//        binding.btnLogin.isEnabled = isEmailValid && isPassValid
+//    }
+
+    private fun updateLoginButtonState() {
+        val usuario = binding.etEmail.text?.toString()?.trim().orEmpty()
+        val pass = binding.etPassword.text?.toString().orEmpty()
+
+        val isUserValid = usuario.length >= 3
+        val isPassValid = pass.length >= 4   // o >= 6 si quieres estricto
+
+        binding.btnLogin.isEnabled = isUserValid && isPassValid
+    }
+
+//    private fun validateInputs(): Boolean {
+//        val email = binding.etEmail.text?.toString()?.trim().orEmpty()
+//        val pass = binding.etPassword.text?.toString().orEmpty()
+//
+//        binding.tilEmail.error = null
+//        binding.tilPassword.error = null
+//        binding.tvError.visibility = View.GONE
+//
+//        var ok = true
+//
+//        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+//            binding.tilEmail.error = "Ingrese un correo válido"
+//            ok = false
+//        }
+//
+//        if (pass.length < 6) {
+//            binding.tilPassword.error = "Mínimo 6 caracteres"
+//            ok = false
+//        }
+//        return ok
+//    }
+
     private fun validateInputs(): Boolean {
-        val email = binding.etEmail.text?.toString()?.trim().orEmpty()
+        val usuario = binding.etEmail.text?.toString()?.trim().orEmpty()
         val pass = binding.etPassword.text?.toString().orEmpty()
 
         binding.tilEmail.error = null
@@ -66,31 +151,24 @@ class LoginActivity : AppCompatActivity() {
 
         var ok = true
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            binding.tilEmail.error = "Ingrese un correo válido"
+        if (usuario.length < 3) {
+            binding.tilEmail.error = "Ingrese usuario válido"
             ok = false
         }
 
-        if (pass.length < 6) {
-            binding.tilPassword.error = "Mínimo 6 caracteres"
+        if (pass.length < 4) {
+            binding.tilPassword.error = "Clave inválida"
             ok = false
         }
 
         return ok
     }
 
-    private fun fakeLogin() {
-        // UX: mostramos loading y bloqueamos el botón para evitar doble clic
-        setLoading(true)
-
-        // Simulación rápida (sin hilos todavía para mantenerlo simple)
-        binding.root.postDelayed({
-            setLoading(false)
-
-            // ✅ Login ok (por ahora siempre)
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }, 900)
+    private fun goToServices() {
+        val intent = Intent(this, ServicesActivity::class.java)
+        // Esto limpia el stack para que no regreses al login con "Back"
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 
     private fun setLoading(isLoading: Boolean) {
@@ -102,8 +180,15 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun validateForEnable(): Boolean {
-        val email = binding.etEmail.text?.toString()?.trim().orEmpty()
+        val usuario = binding.etEmail.text?.toString()?.trim().orEmpty()
         val pass = binding.etPassword.text?.toString().orEmpty()
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches() && pass.length >= 6
+        return usuario.length >= 3 && pass.length >= 4
     }
+
+//    private fun validateForEnable(): Boolean {
+//        val email = binding.etEmail.text?.toString()?.trim().orEmpty()
+//        val pass = binding.etPassword.text?.toString().orEmpty()
+//        return Patterns.EMAIL_ADDRESS.matcher(email).matches() && pass.length >= 6
+//    }
+
 }
