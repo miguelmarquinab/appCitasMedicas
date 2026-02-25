@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F9FA"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_marginVertical="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Solicita tu Cita en Línea"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inicio / Reservar Cita"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="En solo 3 pasos podrás Agendar una Cita en Línea."
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_marginBottom="24dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1."
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#6C63FF"
+                android:layout_marginEnd="4dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ingrese sus Datos:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#000000"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tipo de Doc. Identidad:"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_marginBottom="4dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerDocType"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#F0F0F0"
+            android:paddingHorizontal="12dp"
+            android:entries="@array/document_types"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nº Documento"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_marginBottom="4dp"/>
+
+        <EditText
+            android:id="@+id/editDocument"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#F0F0F0"
+            android:paddingHorizontal="12dp"
+            android:hint="Ingrese su número de documento"
+            android:inputType="number"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombres"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_marginBottom="4dp"/>
+
+        <EditText
+            android:id="@+id/editNames"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#F0F0F0"
+            android:paddingHorizontal="12dp"
+            android:hint="Ingrese sus nombres"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Apellido Paterno"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_marginBottom="4dp"/>
+
+        <EditText
+            android:id="@+id/editLastName"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#F0F0F0"
+            android:paddingHorizontal="12dp"
+            android:hint="Ingrese su apellido paterno"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Apellido Materno"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_marginBottom="4dp"/>
+
+        <EditText
+            android:id="@+id/editSecondLastName"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#F0F0F0"
+            android:paddingHorizontal="12dp"
+            android:hint="Ingrese su apellido materno"
+            android:layout_marginBottom="12dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sexo"
+                    android:textSize="14sp"
+                    android:textColor="#666666"
+                    android:layout_marginBottom="4dp"/>
+
+                <Spinner
+                    android:id="@+id/spinnerGender"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="#F0F0F0"
+                    android:paddingHorizontal="12dp"
+                    android:entries="@array/genders"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha Nacimiento"
+                    android:textSize="14sp"
+                    android:textColor="#666666"
+                    android:layout_marginBottom="4dp"/>
+
+                <EditText
+                    android:id="@+id/editBirthDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="#F0F0F0"
+                    android:paddingHorizontal="12dp"
+                    android:hint="DD/MM/AAAA"
+                    android:inputType="date"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Título de Servicio a Solicitar"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="4dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerService"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#F0F0F0"
+            android:paddingHorizontal="12dp"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Etapa Especializada del Servicio"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_marginBottom="4dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerStage"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#F0F0F0"
+            android:paddingHorizontal="12dp"
+            android:layout_marginBottom="12dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="24dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Celular"
+                    android:textSize="14sp"
+                    android:textColor="#666666"
+                    android:layout_marginBottom="4dp"/>
+
+                <EditText
+                    android:id="@+id/editPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="#F0F0F0"
+                    android:paddingHorizontal="12dp"
+                    android:hint="Número de celular"
+                    android:inputType="phone"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="E-mail"
+                    android:textSize="14sp"
+                    android:textColor="#666666"
+                    android:layout_marginBottom="4dp"/>
+
+                <EditText
+                    android:id="@+id/editEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="#F0F0F0"
+                    android:paddingHorizontal="12dp"
+                    android:hint="Correo electrónico"
+                    android:inputType="textEmailAddress"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2."
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#6C63FF"
+                android:layout_marginEnd="4dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Elija la Fecha de su Cita:"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#000000"/>
+        </LinearLayout>
+
+        <DatePicker
+            android:id="@+id/datePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3."
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#6C63FF"
+                android:layout_marginEnd="4dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Elija la Hora de su Cita:"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#000000"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="32dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="09:00"
+                android:background="#F0F0F0"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:textColor="#999999"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="10:00"
+                android:background="#E8F0FE"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:textColor="#6C63FF"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="11:00"
+                android:background="#E8F0FE"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:textColor="#6C63FF"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="12:00"
+                android:background="#F0F0F0"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:textColor="#999999"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="15:00"
+                android:background="#E8F0FE"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:textColor="#6C63FF"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="16:00"
+                android:background="#E8F0FE"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:textColor="#6C63FF"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="17:00"
+                android:background="#F0F0F0"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:textColor="#999999"
+                android:layout_marginBottom="8dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="Cancelar"
+                android:textColor="#6C63FF"
+                android:backgroundTint="#FFFFFF"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/btnReserve"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="Reservar"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#6C63FF"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="registrar Cita"
+            android:textSize="12sp"
+            android:textColor="#999999"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="API : server/cita/registrar"
+            android:textSize="10sp"
+            android:textColor="#CCCCCC"
+            android:layout_gravity="center_horizontal"/>
+
+    </LinearLayout>
+</ScrollView>
