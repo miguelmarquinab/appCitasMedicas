@@ -31,7 +31,7 @@
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/imgLogo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"D
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="12dp"/>
 
     <TextView
