@@ -1,5 +1,7 @@
 package com.example.appcitasmedicas
 
+import android.R
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
@@ -61,11 +63,11 @@ class LoginActivity : AppCompatActivity() {
 
         com.example.appcitasmedicas.data.remote.ApiClient.api
             .login(usuario, clave)
-            .enqueue(object : retrofit2.Callback<List<com.example.appcitasmedicas.data.remote.LoginUserDto>> {
+            .enqueue(object : retrofit2.Callback<com.example.appcitasmedicas.data.remote.LoginResponse> {
 
                 override fun onResponse(
-                    call: retrofit2.Call<List<com.example.appcitasmedicas.data.remote.LoginUserDto>>,
-                    response: retrofit2.Response<List<com.example.appcitasmedicas.data.remote.LoginUserDto>>
+                    call: retrofit2.Call<com.example.appcitasmedicas.data.remote.LoginResponse>,
+                    response: retrofit2.Response<com.example.appcitasmedicas.data.remote.LoginResponse>
                 ) {
                     setLoading(false)
 
@@ -74,18 +76,18 @@ class LoginActivity : AppCompatActivity() {
                         return
                     }
 
-                    val body = response.body().orEmpty()
-                    if (body.isEmpty()) {
+                    val body = response.body()
+                    if (body?.usuario == null) {
                         showError("Usuario o clave incorrectos")
                         return
                     }
+                    val idUsuario = body.usuario.idUsuario
 
-                    // ✅ Login OK
-                    goToServices()
+                    goToServices(idUsuario)
                 }
 
                 override fun onFailure(
-                    call: retrofit2.Call<List<com.example.appcitasmedicas.data.remote.LoginUserDto>>,
+                    call: retrofit2.Call<com.example.appcitasmedicas.data.remote.LoginResponse>,
                     t: Throwable
                 ) {
                     setLoading(false)
@@ -164,11 +166,15 @@ class LoginActivity : AppCompatActivity() {
         return ok
     }
 
-    private fun goToServices() {
+    private fun goToServices(idUsuario: Int) {
+        val prefs = getSharedPreferences("personal_data", Context.MODE_PRIVATE)
+        prefs.edit()
+            .putInt("ID_USUARIO", idUsuario)
+            .apply()
         val intent = Intent(this, ServicesActivity::class.java)
-        // Esto limpia el stack para que no regreses al login con "Back"
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
+        finish()
     }
 
     private fun setLoading(isLoading: Boolean) {

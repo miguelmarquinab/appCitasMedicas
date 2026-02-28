@@ -1,5 +1,6 @@
 package com.example.appcitasmedicas
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +18,8 @@ class ServicesActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.cardReservar.setOnClickListener {
-            // luego: ir a reserva de cita
+            val intent = Intent(this, BookingActivity::class.java)
+            startActivity(intent)
         }
 
         binding.cardMisCitas.setOnClickListener {
