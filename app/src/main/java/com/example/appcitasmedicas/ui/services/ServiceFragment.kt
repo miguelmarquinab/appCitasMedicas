@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.appcitasmedicas.BookingActivity
 import com.example.appcitasmedicas.LoginActivity
 import com.example.appcitasmedicas.R
 import com.example.appcitasmedicas.databinding.FragmentServiceBinding
@@ -34,6 +35,8 @@ class ServiceFragment :  Fragment(R.layout.fragment_service) {
             when (item.id) {
                 "RESERVAR" -> {
                     // TODO: navegar a pantalla reservar
+                    val intent = Intent(requireContext(), BookingActivity::class.java)
+                    startActivity(intent)
                 }
                 "MIS_CITAS" -> {
                     // TODO

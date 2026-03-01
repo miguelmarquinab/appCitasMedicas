@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCitasMedicas">
         <activity android:name=".ServicesActivity" android:exported="false" />
+        <activity android:name=".BookingActivity" android:exported="false" />
         <activity android:name=".LoginActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
