@@ -1,15 +1,21 @@
 package com.example.appcitasmedicas.ui.services
 
 import android.content.Intent
+import com.example.appcitasmedicas.LoginActivity
+
+
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.appcitasmedicas.LoginActivity
 import com.example.appcitasmedicas.R
+import com.example.appcitasmedicas.data.remote.ApiClient
 import com.example.appcitasmedicas.databinding.FragmentServiceBinding
 import com.example.appcitasmedicas.ui.services.adapter.ServiceAdapter
 import com.example.appcitasmedicas.ui.services.model.ServiceItem
+import kotlinx.coroutines.launch
 
 class ServiceFragment :  Fragment(R.layout.fragment_service) {
 
@@ -21,7 +27,7 @@ class ServiceFragment :  Fragment(R.layout.fragment_service) {
         _binding = FragmentServiceBinding.bind(view)
 
         // Nombre (puedes traerlo del login luego)
-        binding.tvHola.text = "Hola Anthony"
+        binding.tvHola.text = "Hola Miguel"
 
         val items = listOf(
             ServiceItem("RESERVAR", "Reservar cita", "Selecciona especialidad, fecha y horario"),

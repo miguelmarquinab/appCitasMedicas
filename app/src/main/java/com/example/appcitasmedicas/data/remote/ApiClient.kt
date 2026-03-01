@@ -6,14 +6,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
-
-    // Emulador Android -> 10.0.2.2 apunta a tu PC
     private const val BASE_URL = "http://10.0.2.2:5213/"
-
     private val logging by lazy {
         HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
     }
-
     private val httpClient by lazy {
         OkHttpClient.Builder()
             .addInterceptor(logging)
